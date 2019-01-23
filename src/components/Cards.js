@@ -41,7 +41,7 @@ class Cards extends React.Component {
                 </Card.Description>
               </Card.Content>
               <Card.Content extra>
-                <Rating icon='star' maxRating={5} onRate={(e,{rating}) => this.handleRate(e,{rating},x.id)} />
+                <Rating maxRating={5} onRate={(e,{rating}) => this.handleRate(e,{rating},x.id)} />
               </Card.Content>
             </Card>
           )}
