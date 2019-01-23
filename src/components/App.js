@@ -26,17 +26,12 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-<<<<<<< HEAD
-        if (this.props.location.state.coinsGiven === undefined) {
-
-=======
         console.log('props from login', this.props.location.state)
         if(this.props.location.state == undefined)
         {
             this.props.history.push('/')
         }
         else if (this.props.location.state.coinsGiven === undefined) {
->>>>>>> b0c5d654be6d5909cbc21f429cc8fd6dad8365d3
             this.setState({ coins: 0 })
         }
         else {
@@ -95,8 +90,11 @@ class App extends React.Component {
     updateCoinsCurrentState = (value) => {
         let addCoins = Number(this.state.coins) + Number(value)
         console.log("in update coin current stage",addCoins);
+        var config = {
+            headers: {"Access-Control-Allow-Origin": "*"}
+          };
         const request={                      //parameter need to be passed 
-            "code":sessionStorage.getItem("userId"),
+            "code":sessionStorage.getItem("userCode"),
             "roleCode": "TCH1",
             "stallCode": "STA6",
             "ideaCode":"IDE6"
@@ -112,16 +110,30 @@ class App extends React.Component {
             },
             "request": {
               "Visitor": {
-                "code": "VIS505",
-                "coinsGiven": addCoins
+                "code": sessionStorage.getItem("userCode"),
+                "coinsGiven": Number(addCoins)
               }
             }
           }
-        axios.post(`http://104.211.78.0:8080/update`, {updateReq})
+        axios.post(`http://104.211.78.0:8080/update`,{
+            "id": "open-saber.registry.update",
+            "ver": "1.0",
+            "ets": "11234",
+            "params": {
+              "did": "",
+              "key": "",
+              "msgid": ""
+            },
+            "request": {
+              "Visitor": {
+                "code": sessionStorage.getItem("userCode"),
+                "coinsGiven": addCoins
+              }
+            }
+          })
             .then(res => {
-                console.log("the response from the update api",res)
                 if(res.data.params.status==='SUCCESSFUL'){
-                    API.post(`login`,{request})
+                    API.get(`profile/read/${sessionStorage.getItem("userCode")}`)
                     .then(res=>{
                         this.setState({
                             coins: res.data.result.Visitor.coinsGiven
