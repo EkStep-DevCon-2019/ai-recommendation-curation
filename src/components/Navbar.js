@@ -39,6 +39,10 @@ class Navbar extends React.Component {
               verticalAlign='middle' />
             <span style={{marginLeft:'6px'}}><b>{this.props.credits}</b></span>
           </Menu.Item>
+
+          {/* <Menu.Item position='center'>
+            AI Recommended Curation
+          </Menu.Item> */}
           <Menu.Item position='right' >
             <Dropdown trigger={trigger} pointing='top right' icon={null}>
               <Dropdown.Menu>
