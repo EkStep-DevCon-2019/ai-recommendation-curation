@@ -41,33 +41,28 @@ class Login extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-
     this.setState({ submitted: true });
-
     const userid  = this.state.userid;
     console.log("the user id is",userid)   // request param need to send 
-
     if (!userid) {
       return;
     }
-
     this.setState({ loading: true });
-
     const request={                      //parameter need to be passed 
-      "code":"VIS509",
+      "code":userid,
       "roleCode": "TCH1",
       "stallCode": "STA6",
       "ideaCode":"IDE6"
-  }
+    }
 
     API.post(`login`,{request})
       .then(res => {
         sessionStorage.setItem("userName",res.data.result.Visitor.name);
-        this.props.history.push({
-          pathname: '/home',
-          state: res.data.result.Visitor,
-        });
-      })
+          this.props.history.push({
+            pathname: '/home',
+            state: res.data.result.Visitor
+          });
+        })
       .catch(error => {
         console.log(error)
         return;
