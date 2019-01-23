@@ -40,10 +40,17 @@ class App extends React.Component {
                 this.setState({ coins: 0 })
             }
             else {
-                sessionStorage.setItem("coins",this.props.location.state.coinsGiven)
-                this.setState({ coins: sessionStorage.getItem("coins") })
+                if(sessionStorage.getItem("coins")==null){
+                this.setState({ coins: this.props.location.state.coinsGiven })
             }
-        }
+
+                else{
+                    this.setState({ coins: sessionStorage.getItem("coins") })
+                }
+
+                }
+            }
+        
     }
 
     generateStartTelemetry(visitorInfo) {
