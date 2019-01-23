@@ -1,7 +1,6 @@
 {
   "loginDetails":[
     {
-<<<<<<< HEAD
       "id": "ekstep.devcon.login",
       "ver": "3.0",
       "ets": 1548141142223,
@@ -22,17 +21,6 @@
           }
       }
   }
-=======
-      "id": 1,
-      "name": "anmol",
-      "credits": 7916
-    },
-    {
-      "id": 2,
-      "name": "isha",
-      "credits": 5609
-    }
->>>>>>> 814e6dd49560de1e930c5fb9f99bedf452e180ff
   ],
   "queryResponse": [
     {

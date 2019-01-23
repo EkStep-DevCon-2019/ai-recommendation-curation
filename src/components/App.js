@@ -27,10 +27,14 @@ class App extends React.Component {
     componentDidMount(){
         // this.getCreditsCurrentState();
         console.log('props from login',this.props.location.state)
-
-    this.setState({
-        coins:this.props.location.state.coinsGiven
-    })
+        if(this.props.location.state==undefined) {
+            this.props.history.push('/');
+        }
+        else {
+            this.setState({
+                coins:this.props.location.state.coinsGiven
+            })
+        }
     }
     
     handleInputChange = (event) => {
