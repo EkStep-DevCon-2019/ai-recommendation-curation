@@ -30,8 +30,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        if(this.props.location.state == undefined)
-        {
+        if (this.props.location.state == undefined) {
             this.props.history.push('/')
         }
         else {
@@ -40,17 +39,16 @@ class App extends React.Component {
                 this.setState({ coins: 0 })
             }
             else {
-                if(sessionStorage.getItem("coins")==null){
-                this.setState({ coins: this.props.location.state.coinsGiven })
-            }
-
-                else{
+                if (sessionStorage.getItem("coins") == null) {
+                    this.setState({ coins: this.props.location.state.coinsGiven })
+                }
+                else {
                     this.setState({ coins: sessionStorage.getItem("coins") })
                 }
 
-                }
             }
-        
+        }
+
     }
 
     generateStartTelemetry(visitorInfo) {
@@ -75,11 +73,11 @@ class App extends React.Component {
             "events": [event]
         };
 
-        console.log('telemetry request',request)
+        console.log('telemetry request', request)
 
-        axios.post(`http://52.172.188.118:3000/v1/telemetry`,request)
-            .then(data =>{
-                console.log("telemetry registered successfully",data);
+        axios.post(`http://52.172.188.118:3000/v1/telemetry`, request)
+            .then(data => {
+                console.log("telemetry registered successfully", data);
             }).catch(err => {
                 console.log("telemetry registration error", error);
             })
@@ -95,14 +93,14 @@ class App extends React.Component {
         this.setState({
             query: this.state.input,
         })
-        const request=
+        const request =
         {
-            "query" : this.state.query,
-            "subject" : this.state.filters[0],
-            "num_of_response" : 3,
-            "session_id" : "a_5"
-        } 
-        axios.post(`http://172.16.0.85:1123/ML/getRecommendation`,{request}).then(res => {
+            "query": this.state.query,
+            "subject": this.state.filters[0],
+            "num_of_response": 3,
+            "session_id": "a_5"
+        }
+        axios.post(`http://172.16.0.85:1123/ML/getRecommendation`, { request }).then(res => {
             this.setState({
                 tags: res.data.response.reco.splice(0, 3),  //For rendering only three cards
             })
@@ -112,28 +110,27 @@ class App extends React.Component {
     }
 
     generateInteractTelemetry(visitorInfo) {
-        const edata = { type: "bazar", mode: "play" };
         const telemetry = {
             "eid": "INTERACT",
             "ets": (new Date).getTime(),
             "ver": "3.0",
             "mid": '98912984-c4e9-5ceb-8000-03882a0485e4',
             "actor": {
-              "id": visitorInfo.code,
-              "type": 'visitor'
+                "id": visitorInfo.code,
+                "type": 'visitor'
             },
-            "context":{
-              "channel": "devcon.appu",
-              "env": 'devcon',
-              "cdata": [{
-                "visitorId": visitorInfo.code,
-                "visitorName": visitorInfo.name,
-                "stallId": "STA7",
-                "stallName": "BAZAR",
-                "ideaId": "IDE21",
-                "ideaName": "Crowd Sourcing",
-                "edata": edata}
-            ],
+            "context": {
+                "channel": "devcon.appu",
+                "env": 'devcon',
+                "cdata": [{
+                    "visitorId": visitorInfo.code,
+                    "visitorName": visitorInfo.name,
+                    "stallId": "STA7",
+                    "stallName": "BAZAR",
+                    "ideaId": "IDE21",
+                    "ideaName": "Crowd Sourcing"
+                }
+                ],
             }
         }
         const event = telemetry;
@@ -142,12 +139,12 @@ class App extends React.Component {
             "events": [event]
         };
 
-        axios.post(`http://52.172.188.118:3000/v1/telemetry`,request)
-        .then(data => {
-            console.log('interact telemetry registered successfully', data);
-        }).catch(err => {
-            console.log('interact telemetry registration error', err);
-        })
+        axios.post(`http://52.172.188.118:3000/v1/telemetry`, request)
+            .then(data => {
+                console.log('interact telemetry registered successfully', data);
+            }).catch(err => {
+                console.log('interact telemetry registration error', err);
+            })
     }
 
     handleFilters = (event, { value }) => {
@@ -185,76 +182,76 @@ class App extends React.Component {
 
     updateCoinsCurrentState = (value) => {
         let addCoins = Number(this.state.coins) + Number(value)
-        console.log("in update coin current stage",addCoins);
+        console.log("in update coin current stage", addCoins);
         var config = {
-            headers: {"Access-Control-Allow-Origin": "*"}
-          };
-        const request={                      //parameter need to be passed 
-            "code":sessionStorage.getItem("userCode"),
+            headers: { "Access-Control-Allow-Origin": "*" }
+        };
+        const request = {                      //parameter need to be passed 
+            "code": sessionStorage.getItem("userCode"),
             "roleCode": "TCH1",
             "stallCode": "STA6",
-            "ideaCode":"IDE6"
-        }      
-     const updateReq= {
+            "ideaCode": "IDE6"
+        }
+        const updateReq = {
             "id": "open-saber.registry.update",
             "ver": "1.0",
             "ets": "11234",
             "params": {
-              "did": "",
-              "key": "",
-              "msgid": ""
+                "did": "",
+                "key": "",
+                "msgid": ""
             },
             "request": {
-              "Visitor": {
-                "code": sessionStorage.getItem("userCode"),
-                "coinsGiven": Number(addCoins)
-              }
-            }
-          }
-        axios.post(`http://104.211.78.0:8080/update`,{
-            "id": "open-saber.registry.update",
-            "ver": "1.0",
-            "ets": "11234",
-            "params": {
-              "did": "",
-              "key": "",
-              "msgid": ""
-            },
-            "request": {
-              "Visitor": {
-                "code": sessionStorage.getItem("userCode"),
-                "coinsGiven": addCoins
-              }
-            }
-          })
-            .then(res => {
-                if(res.data.params.status==='SUCCESSFUL'){
-                    API.get(`profile/read/${sessionStorage.getItem("userCode")}`)
-                    .then(res=>{
-                        this.setState({
-                            coins: res.data.result.Visitor.coinsGiven,
-                            message: 'Congratulations! Coins Successfully Credited',
-                            messageOpen: true,
-                        })  
-                        sessionStorage.setItem("coins",res.data.result.Visitor.coinsGiven)
-                        console.log("the value in sessionCode",sessionStorage.getItem("coins"))
-                    })
+                "Visitor": {
+                    "code": sessionStorage.getItem("userCode"),
+                    "coinsGiven": Number(addCoins)
                 }
-                else{
-                // login to be put if coin updation is unsuccessfull
+            }
+        }
+        axios.post(`http://104.211.78.0:8080/update`, {
+            "id": "open-saber.registry.update",
+            "ver": "1.0",
+            "ets": "11234",
+            "params": {
+                "did": "",
+                "key": "",
+                "msgid": ""
+            },
+            "request": {
+                "Visitor": {
+                    "code": sessionStorage.getItem("userCode"),
+                    "coinsGiven": addCoins
+                }
+            }
+        })
+            .then(res => {
+                if (res.data.params.status === 'SUCCESSFUL') {
+                    API.get(`profile/read/${sessionStorage.getItem("userCode")}`)
+                        .then(res => {
+                            this.setState({
+                                coins: res.data.result.Visitor.coinsGiven,
+                                message: 'Congratulations! Coins successfully credited!',
+                                messageOpen: true,
+                            })
+                            sessionStorage.setItem("coins", res.data.result.Visitor.coinsGiven)
+                            console.log("the value in sessionCode", sessionStorage.getItem("coins"))
+                        })
+                }
+                else {
+                    // login to be put if coin updation is unsuccessfull
                     this.setState({
-                        message: 'No coins credited! Retry After Some Time',
+                        message: 'No coins credited! Try again later!',
                         messageOpen: true,
                     })
                 }
-            }).catch(err=>{
+            }).catch(err => {
                 this.setState({
-                    message: 'No coins credited! Retry After Some Time',
+                    message: 'No coins credited! Try again later!',
                     messageOpen: true,
                 })
             })
     }
-    
+
     handleClose = () => this.setState({ messageOpen: false })
 
     render() {
@@ -263,8 +260,8 @@ class App extends React.Component {
                 <Navbar credits={this.state.coins} />
                 <div style={{ marginTop: '30px' }}>
                     <Search handleInputChange={this.handleInputChange} handleSearch={this.handleSearch} handleFilters={this.handleFilters} />
-                    {(this.state.query == ''||this.state.filters.length==0) ? '' : <Cards query={this.state.query} tags={this.state.tags} filters={this.state.filters} handleSubmit={this.handleSubmit} />}
-                    {(this.state.messageOpen)?<Message message={this.state.message} messageOpen={this.state.messageOpen} handleClose={this.handleClose} />: ''}
+                    {(this.state.query == '' || this.state.filters.length == 0) ? '' : <Cards query={this.state.query} tags={this.state.tags} filters={this.state.filters} handleSubmit={this.handleSubmit} />}
+                    {(this.state.messageOpen) ? <Message message={this.state.message} messageOpen={this.state.messageOpen} handleClose={this.handleClose} /> : ''}
                     <Graph />
                 </div>
             </div>

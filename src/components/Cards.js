@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Button, Icon,Image, Header, Rating, Dimmer, Loader } from 'semantic-ui-react';
+import { Card, Button, Icon,Image, Header, Rating, Dimmer, Loader, Segment } from 'semantic-ui-react';
 
 class Cards extends React.Component {
   constructor(props) {
@@ -25,9 +25,10 @@ class Cards extends React.Component {
         <Icon name='tags' />
           Recommended Tags:
         </Header>
-        {(this.props.tags.length==0)? <Dimmer active inverted >
+        {(this.props.tags.length==0)? 
+        <Segment style={{height: 200}}><Dimmer active inverted >
             <Loader size='massive'>Loading Search Results</Loader>
-          </Dimmer> :
+          </Dimmer></Segment> :
         <Card.Group style={{marginTop: '10px', display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
           {this.props.tags.map((x, i) =>
             <Card key={i}>
@@ -37,7 +38,7 @@ class Cards extends React.Component {
                 {/* <Card.Meta>Friends of Elliot</Card.Meta> */}
                 {/* <Image src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmusVyHLSxuIdiEyhcIKOM5qJ_VsMnMwx3VTwcf6j2QV5YGrpzMg' style={{width: '100%'}}/> */}
                 <Card.Description>
-                  Steve wants to add you to the group <strong>best friends</strong>
+                  {x.explanation}
                 </Card.Description>
               </Card.Content>
               <Card.Content extra>
