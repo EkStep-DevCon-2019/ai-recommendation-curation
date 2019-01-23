@@ -34,7 +34,7 @@ class Graph extends React.Component {
   }
 
   componentDidMount = () => {
-    this.timer = setInterval(() => this.getPerformance(), 300);
+    this.timer = setInterval(() => this.getPerformance(), 300000);
   }
 
   componentWillUnmount = () => {
