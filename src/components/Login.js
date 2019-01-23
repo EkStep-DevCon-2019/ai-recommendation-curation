@@ -51,7 +51,6 @@ class Login extends React.Component {
     }
 
     this.setState({ loading: true });
-
     sessionStorage.setItem("userId",userid);
     const request={                      //parameter need to be passed 
       "code":userid,
@@ -100,7 +99,6 @@ class Login extends React.Component {
   onSignIn(response) {
     console.log(response);
     sessionStorage.setItem("userid", response.profileObj.name);
-    sessionStorage.setItem("userProfileImage", response.profileObj.imageUrl);
     this.setState({
       redirect: true
     });

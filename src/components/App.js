@@ -26,8 +26,17 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+<<<<<<< HEAD
         if (this.props.location.state.coinsGiven === undefined) {
 
+=======
+        console.log('props from login', this.props.location.state)
+        if(this.props.location.state == undefined)
+        {
+            this.props.history.push('/')
+        }
+        else if (this.props.location.state.coinsGiven === undefined) {
+>>>>>>> b0c5d654be6d5909cbc21f429cc8fd6dad8365d3
             this.setState({ coins: 0 })
         }
         else {

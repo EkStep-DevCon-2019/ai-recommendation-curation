@@ -20,7 +20,7 @@ class Graph extends React.Component {
         let dataPoints = [];
         for (var i = 0; i < data.length; i++) {
           dataPoints.push({
-            x: Number(moment.utc(Number(data[i].timestamp)).format('HH')),
+            x: Number(moment.utc(Number(data[i].timestamp)).format('HH:MM')),
             y: data[i].accuracy
           });
         }
@@ -47,10 +47,14 @@ class Graph extends React.Component {
           <Icon name='line graph' />
           Precision Graph:
         </Header>
-        {(this.state.graphdata.length == 0) ? <Segment style={{ height: 200 }}>
-          <Dimmer active inverted style={{ marginTop: '80px' }}>
-            <Loader size='massive'>Preparing Graph</Loader>
-          </Dimmer></Segment> : <Segment style={{ margin: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '50px' }}>
+        {(this.state.graphdata.length == 0) ? 
+          <Segment style={{ height: 200 }}>
+            <Dimmer active inverted style={{ marginTop: '80px' }}>
+              <Loader size='massive'>Preparing Graph</Loader>
+            </Dimmer>
+          </Segment> 
+          :
+          <Segment style={{ margin: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '50px' }}>
             <ResponsiveContainer width='80%' height={200}>
               <LineChart data={this.state.graphdata}>
                 <XAxis dataKey="x" >
@@ -64,7 +68,7 @@ class Graph extends React.Component {
 
                 <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
                 <Line type="monotone" dataKey="y" stroke="#82ca9d" />
-              </LineChart>
+                </LineChart>
             </ResponsiveContainer>
           </Segment>}
       </div>
