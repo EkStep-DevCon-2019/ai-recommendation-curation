@@ -38,7 +38,7 @@ class Login extends React.Component {
 
     this.setState({ userid : e.target.value });
   }
-  
+
   handleSubmit(e) {
     e.preventDefault();
 
@@ -52,7 +52,6 @@ class Login extends React.Component {
     }
 
     this.setState({ loading: true });
-
 
     const request={                      //parameter need to be passed 
       "code":"VIS509",
