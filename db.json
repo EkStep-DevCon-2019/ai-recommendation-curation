@@ -1,0 +1,48 @@
+{
+  "userDetails": [
+    {
+      "id": 1,
+      "name": "anmol",
+      "credits": 7903
+    },
+    {
+      "id": 2,
+      "name": "abc",
+      "credits": "100"
+    }
+  ],
+  "data": [
+    {
+      "timestamp": "1548140680645",
+      "accuracy": "10"
+    },
+    {
+      "timestamp": "1548140681349",
+      "accuracy": "20"
+    },
+    {
+      "timestamp": "1548140681759",
+      "accuracy": "23"
+    },
+    {
+      "timestamp": "1548140682990",
+      "accuracy": "19"
+    },
+    {
+      "timestamp": "1548140683345",
+      "accuracy": "25"
+    },
+    {
+      "timestamp": "1548140685003",
+      "accuracy": "32"
+    },
+    {
+      "timestamp": "1548140685234",
+      "accuracy": "45"
+    },
+    {
+      "timestamp": "1548140685238",
+      "accuracy": "48"
+    }
+  ]
+}
