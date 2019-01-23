@@ -5,6 +5,7 @@ import Cards from './Cards';
 import Graph from './Graph';
 import API from '../utils/Api'
 import axios from 'axios';
+import Message from './Message';
 import SessionIdGenerator from '../../src/utils/SessionIdGenerator'
 
 
@@ -18,6 +19,8 @@ class App extends React.Component {
             feedback: [],
             coins: 0,
             tags: [],
+            message: '',
+            messageOpen: false,
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
@@ -26,7 +29,6 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        console.log('props from login', this.props.location.state)
         if(this.props.location.state == undefined)
         {
             this.props.history.push('/')
@@ -79,7 +81,7 @@ class App extends React.Component {
         this.updateCoinsCurrentState(keys.length)
     }
 
-    // getCreditsCurrentState=()=>{
+    // getCreditsCurrentState = () => {
     //     API.get(`loginDetails`)
     //     .then(res => {
     //         console.log("the response from the login apis",res.data[0].result.Visitor.coinsGiven)
@@ -136,17 +138,28 @@ class App extends React.Component {
                     API.get(`profile/read/${sessionStorage.getItem("userCode")}`)
                     .then(res=>{
                         this.setState({
-                            coins: res.data.result.Visitor.coinsGiven
+                            coins: res.data.result.Visitor.coinsGiven,
+                            message: 'Congratulations! Coins Successfully Credited',
+                            messageOpen: true,
                         })
-
                     })
                 }
                 else{
-// login to be put if coin updation is unsuccessfull
-                
+                // login to be put if coin updation is unsuccessfull
+                    this.setState({
+                        message: 'No coins credited! Retry After Some Time',
+                        messageOpen: true,
+                    })
                 }
+            }).catch(err=>{
+                this.setState({
+                    message: 'No coins credited! Retry After Some Time',
+                    messageOpen: true,
+                })
             })
     }
+    
+    handleClose = () => this.setState({ messageOpen: false })
 
     render() {
         return (
@@ -155,6 +168,7 @@ class App extends React.Component {
                 <div style={{ marginTop: '30px' }}>
                     <Search handleInputChange={this.handleInputChange} handleSearch={this.handleSearch} handleFilters={this.handleFilters} />
                     {(this.state.query == '') ? '' : <Cards query={this.state.query} tags={this.state.tags} filters={this.state.filters} handleSubmit={this.handleSubmit} />}
+                    {(this.state.messageOpen)?<Message message={this.state.message} messageOpen={this.state.messageOpen} handleClose={this.handleClose} />: ''}
                     <Graph />
                 </div>
             </div>
