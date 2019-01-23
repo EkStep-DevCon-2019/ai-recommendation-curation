@@ -31,7 +31,7 @@ class Cards extends React.Component {
         <Card.Group style={{marginTop: '10px', display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
           {this.props.tags.map((x, i) =>
             <Card key={i}>
-                <Image src={x.Previewurl} alt="Image not available" style={{width: '100%', height: 200}} />
+                <Image src={x.appicon} alt="Image not available" style={{width: '100%', height: 200}} />
               <Card.Content>
                 <Card.Header>{x.name}</Card.Header>
                 {/* <Card.Meta>Friends of Elliot</Card.Meta> */}
@@ -41,7 +41,7 @@ class Cards extends React.Component {
                 </Card.Description>
               </Card.Content>
               <Card.Content extra>
-                <Rating maxRating={5} icon='star' size='large' onRate={(e,{rating}) => this.handleRate(e,{rating},x.id)} />
+                <Rating maxRating={5} icon='star' size='large' onRate={(e,{rating}) => this.handleRate(e,{rating},x.identifier)} />
               </Card.Content>
             </Card>
           )}

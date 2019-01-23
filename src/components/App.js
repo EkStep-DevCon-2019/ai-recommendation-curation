@@ -40,7 +40,8 @@ class App extends React.Component {
                 this.setState({ coins: 0 })
             }
             else {
-                this.setState({ coins: this.props.location.state.coinsGiven })
+                sessionStorage.setItem("coins",this.props.location.state.coinsGiven)
+                this.setState({ coins: sessionStorage.getItem("coins") })
             }
         }
     }
@@ -85,10 +86,19 @@ class App extends React.Component {
     }
 
     handleSearch = () => {
-        axios.get(`http://localhost:3000/queryResponse`).then(res => {
+        this.setState({
+            query: this.state.input,
+        })
+        const request=
+        {
+            "query" : this.state.query,
+            "subject" : this.state.filters[0],
+            "num_of_response" : 3,
+            "session_id" : "a_5"
+        } 
+        axios.post(`http://172.16.0.85:1123/ML/getRecommendation`,{request}).then(res => {
             this.setState({
-                tags: res.data.splice(0, 3),  //For rendering only three cards
-                query: this.state.input,
+                tags: res.data.response.reco.splice(0, 3),  //For rendering only three cards
             })
             console.log('response query=>', res.data)
         })
@@ -219,7 +229,9 @@ class App extends React.Component {
                             coins: res.data.result.Visitor.coinsGiven,
                             message: 'Congratulations! Coins Successfully Credited',
                             messageOpen: true,
-                        })
+                        })  
+                        sessionStorage.setItem("coins",res.data.result.Visitor.coinsGiven)
+                        console.log("the value in sessionCode",sessionStorage.getItem("coins"))
                     })
                 }
                 else{
@@ -245,7 +257,7 @@ class App extends React.Component {
                 <Navbar credits={this.state.coins} />
                 <div style={{ marginTop: '30px' }}>
                     <Search handleInputChange={this.handleInputChange} handleSearch={this.handleSearch} handleFilters={this.handleFilters} />
-                    {(this.state.query == '') ? '' : <Cards query={this.state.query} tags={this.state.tags} filters={this.state.filters} handleSubmit={this.handleSubmit} />}
+                    {(this.state.query == ''||this.state.filters.length==0) ? '' : <Cards query={this.state.query} tags={this.state.tags} filters={this.state.filters} handleSubmit={this.handleSubmit} />}
                     {(this.state.messageOpen)?<Message message={this.state.message} messageOpen={this.state.messageOpen} handleClose={this.handleClose} />: ''}
                     <Graph />
                 </div>

@@ -14,7 +14,7 @@ class Graph extends React.Component {
   }
 
   getPerformance = () => {
-    axios.get(`http://localhost:3000/data`)
+    axios.get(`http://172.16.0.85:2358/ML/RLaccuracy`)
       .then(res => {
         return (res.data)
       }).then(function (data) {

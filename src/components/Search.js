@@ -8,7 +8,8 @@ class Search extends React.Component {
         filters: [
             {text: 'Physics', value: 'Physics'},
             {text: 'EVS', value: 'EVS'},
-            {text: 'Geography', value: 'Geography'}
+            {text: 'Geography', value: 'Geography'},
+            {text: 'Mathematics', value: 'Mathematics'}
          ]
     };
   }
