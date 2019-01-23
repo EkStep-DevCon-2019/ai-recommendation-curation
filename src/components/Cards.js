@@ -21,7 +21,7 @@ class Cards extends React.Component {
   render() {
     return (
       <div style={{margin: '10px'}}>
-        <Header style={{paddingTop: '20px', paddingLeft: '40px'}}>  
+        <Header style={{paddingTop: '20px', paddingLeft: '40px'}}>
           Recommended:
         </Header>
         {(this.props.tags.length==0)? <Dimmer active inverted style={{marginTop: '80px' }}>
@@ -30,6 +30,7 @@ class Cards extends React.Component {
         <Card.Group style={{marginTop: '10px', display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
           {this.props.tags.map((x, i) =>
             <Card key={i}>
+                <Image src='https://react.semantic-ui.com/images/wireframe/image.png' style={{width: '100%'}}/>
               <Card.Content>
                 <Card.Header>{x.name}</Card.Header>
                 {/* <Card.Meta>Friends of Elliot</Card.Meta> */}
@@ -47,7 +48,7 @@ class Cards extends React.Component {
         </Card.Group>}
         <br />
         <Button primary floated='right' onClick={this.props.handleSubmit}> Submit </Button>
-        <br /> 
+        <br />
       </div>
     );
   }
