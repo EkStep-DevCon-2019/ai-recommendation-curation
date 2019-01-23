@@ -16,16 +16,17 @@ class App extends React.Component {
           filters: [],
           feedback: [],
           credits: 0,
+          tags: [],
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
         this.handleFilters = this.handleFilters.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
-      componentDidMount(){
 
-         this.getCreditsCurrentState();
-      }
+    componentDidMount(){
+        this.getCreditsCurrentState();
+    }
     
     handleInputChange = (event) => {
         this.setState({
@@ -34,9 +35,13 @@ class App extends React.Component {
     }
     
     handleSearch = () => {
-        this.setState({
-          query: this.state.input,
-        })
+        API.get(`queryResponse`).then(res => {
+            this.setState({
+              tags: res.data.splice(0,3),  //For rendering only three cards
+              query: this.state.input,
+            })
+            console.log('response query=>', res.data)
+          })
     }
 
     handleFilters = (event, {value}) => {
@@ -86,7 +91,7 @@ class App extends React.Component {
                 <Navbar credits={this.state.credits} />
                 <div style={{marginTop: '30px'}}>
                     <Search handleInputChange={this.handleInputChange} handleSearch={this.handleSearch} handleFilters={this.handleFilters} />
-                    {(this.state.query=='')?'':<Cards query={this.state.query} filters={this.state.filters} handleSubmit={this.handleSubmit}/>}
+                    {(this.state.query=='')?'':<Cards query={this.state.query} tags={this.state.tags} filters={this.state.filters} handleSubmit={this.handleSubmit}/>}
                     <Graph />
                 </div>
             </div>
