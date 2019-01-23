@@ -52,7 +52,7 @@ class App extends React.Component {
     }
 
     generateStartTelemetry(visitorInfo) {
-        const edata = { type: "bazar", mode: "play" };
+        const edata = { type: "bazaar", mode: "play" };
         // const did = machineIdSync();
         const telemetry = {
             eid: "DC_START",
@@ -62,7 +62,7 @@ class App extends React.Component {
                 'visitorId': visitorInfo.code,
                 'visitorName': visitorInfo.name,
                 'stallId': "STA7",
-                'stallName': "BAZAR",
+                'stallName': "Bazaar",
                 'ideaId': "IDE21",
                 'ideaName': "Crowd Sourcing",
                 'edata': edata
@@ -79,7 +79,7 @@ class App extends React.Component {
             .then(data => {
                 console.log("telemetry registered successfully", data);
             }).catch(err => {
-                console.log("telemetry registration error", error);
+                console.log("telemetry registration error", err);
             })
     }
 
@@ -126,7 +126,7 @@ class App extends React.Component {
                     "visitorId": visitorInfo.code,
                     "visitorName": visitorInfo.name,
                     "stallId": "STA7",
-                    "stallName": "BAZAR",
+                    "stallName": "bazaar",
                     "ideaId": "IDE21",
                     "ideaName": "Crowd Sourcing"
                 }

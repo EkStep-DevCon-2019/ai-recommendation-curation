@@ -17,7 +17,6 @@ class SessionIdGenerator extends React.Component {
 
   static getUuid(){
     return(uuid.v4());
-    
   }
 }
 export default SessionIdGenerator;
