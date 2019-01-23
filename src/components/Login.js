@@ -53,12 +53,20 @@ class Login extends React.Component {
 
     this.setState({ loading: true });
 
-    API.get(`loginDetails`)
+
+    const request={                      //parameter need to be passed 
+      "code":"VIS509",
+      "roleCode": "TCH1",
+      "stallCode": "STA6",
+      "ideaCode":"IDE6"
+  }
+
+    API.post(`login`,{request})
       .then(res => {
-        sessionStorage.setItem("userName",res.data[0].result.Visitor.name);
+        sessionStorage.setItem("userName",res.data.result.Visitor.name);
         this.props.history.push({
           pathname: '/home',
-          state: res.data[0].result.Visitor,
+          state: res.data.result.Visitor,
         });
       })
       .catch(error => {
