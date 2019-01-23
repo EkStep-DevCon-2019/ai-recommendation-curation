@@ -6,8 +6,9 @@ import Graph from './Graph';
 import API from '../utils/Api'
 import axios from 'axios';
 import Message from './Message';
-import SessionIdGenerator from '../../src/utils/SessionIdGenerator'
-
+import SessionIdGenerator from '../../src/utils/SessionIdGenerator';
+import { request } from 'http';
+// import {machineId, machineIdSync} from 'node-machine-id';
 
 class App extends React.Component {
     constructor(props) {
@@ -33,12 +34,48 @@ class App extends React.Component {
         {
             this.props.history.push('/')
         }
-        else if (this.props.location.state.coinsGiven === undefined) {
-            this.setState({ coins: 0 })
-        }
         else {
-            this.setState({ coins: this.props.location.state.coinsGiven })
+            this.generateStartTelemetry(this.props.location.state);
+            if (this.props.location.state.coinsGiven === undefined) {
+                this.setState({ coins: 0 })
+            }
+            else {
+                this.setState({ coins: this.props.location.state.coinsGiven })
+            }
         }
+    }
+
+    generateStartTelemetry(visitorInfo) {
+        const edata = { type: "bazar", mode: "play" };
+        // const did = machineIdSync();
+        const telemetry = {
+            eid: "DC_START",
+            did: '98912984-c4e9-5ceb-8000-03882a0485e4',
+            ets: (new Date).getTime(),
+            dimensions: {
+                visitorId: visitorInfo.code,
+                visitorName: visitorInfo.name,
+                profileId: visitorInfo.osid,
+                stallId: "STA7",
+                stallName: "BAZAR",
+                ideaId: "IDE21",
+                ideaName: "Crowd Sourcing",
+                edata: edata
+            }
+        }
+        const event = JSON.stringify(telemetry);
+        const request = {
+            "events": [event]
+        };
+
+        console.log('telemetry request',request)
+
+        axios.post(`http://52.172.188.118:3000/v1/telemetry`,request)
+            .then(data =>{
+                console.log("telemetry registered successfully",data);
+            }).catch(err => {
+                console.log("telemetry registration error", error);
+            })
     }
 
     handleInputChange = (event) => {
@@ -54,6 +91,46 @@ class App extends React.Component {
                 query: this.state.input,
             })
             console.log('response query=>', res.data)
+        })
+        this.generateInteractTelemetry(this.props.location.state)
+    }
+
+    generateInteractTelemetry(visitorInfo) {
+        const edata = { type: "bazar", mode: "play" };
+        const telemetry = {
+            "eid": "INTERACT",
+            "ets": (new Date).getTime(),
+            "ver": "3.0",
+            "mid": '98912984-c4e9-5ceb-8000-03882a0485e4',
+            "actor": {
+              "id": visitorInfo.code,
+              "type": 'visitor'
+            },
+            "context":{
+              "channel": "devcon.appu",
+              "env": 'devcon',
+              "cdata": [{
+                visitorId: visitorInfo.code,
+                visitorName: visitorInfo.name,
+                profileId: visitorInfo.osid,
+                stallId: "STA7",
+                stallName: "BAZAR",
+                ideaId: "IDE21",
+                ideaName: "Crowd Sourcing",
+                edata: edata
+            }],
+            }
+        }
+        const event = JSON.stringify(telemetry);
+        const request = {
+            "events": [event]
+        };
+
+        axios.post(`http://52.172.188.118:3000/v1/telemetry`,request)
+        .then(data => {
+            console.log('interact telemetry registered successfully', data);
+        }).catch(err => {
+            console.log('interact telemetry registration error', err);
         })
     }
 
@@ -78,7 +155,8 @@ class App extends React.Component {
             feedback: values,
         })
         localStorage.clear();
-        this.updateCoinsCurrentState(keys.length)
+        this.updateCoinsCurrentState(keys.length);
+        this.generateInteractTelemetry(this.props.location.state);
     }
 
     // getCreditsCurrentState = () => {
