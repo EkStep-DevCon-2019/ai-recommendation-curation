@@ -25,7 +25,7 @@ class App extends React.Component {
       }
 
     componentDidMount(){
-        this.getCreditsCurrentState();
+        // this.getCreditsCurrentState();
     }
     
     handleInputChange = (event) => {
@@ -68,12 +68,13 @@ class App extends React.Component {
       this.updateCreditsCurrentState(keys.length)
     }
 
-    getCreditsCurrentState=()=>{
-        API.get(`userDetails`)
-        .then(res => {
-          this.setState({ credits:res.data[0].credits});
-        })
-    }
+    // getCreditsCurrentState=()=>{
+    //     API.get(`loginDetails`)
+    //     .then(res => {
+    //         console.log("the response from the login apis",res.data[0].result.Visitor.coinsGiven)
+    //       this.setState({ credits:res.data[0].result.Visitor.coinsGiven});
+    //     })
+    // }
 
     updateCreditsCurrentState=(value)=>{
         let addCredits = Number(this.state.credits)+Number(value)

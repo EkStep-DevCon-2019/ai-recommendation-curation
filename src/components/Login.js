@@ -13,6 +13,8 @@ import {
 import QrReader from "react-qr-scanner";
 import axios from 'axios';
 import "../css/style.css";
+import API from '../utils/Api'
+import SessionIdGenerator from "../utils/SessionIdGenerator";
 
 class Login extends React.Component {
   constructor(props) {
@@ -42,6 +44,7 @@ class Login extends React.Component {
     this.setState({ submitted: true });
 
     const userid  = this.state.userid;
+    console.log("the user id is",userid)   // request param need to send 
 
     if (!userid) {
       return;
@@ -49,12 +52,19 @@ class Login extends React.Component {
 
     this.setState({ loading: true });
 
-    axios.post(`https://jsonplaceholder.typicode.com/users`, { userid })
+    API.get(`loginDetails`)
       .then(res => {
-        console.log(res);
-        console.log(res.data);
+        sessionStorage.setItem("userObject",res.data);
+        sessionStorage.setItem("userName",res.data[0].result.Visitor.name);
+        sessionStorage.setItem("coins",res.data[0].result.Visitor.coinsGiven);
+        sessionStorage.setItem("os-id",res.data[0].result.Visitor.osid);
+        sessionStorage.setItem("code",res.data[0].result.Visitor.code);
         this.props.history.push('/home');
       })
+      .catch(error => {
+        console.log(error)
+        return;
+    });
 
   }
   handleScan(data) {
