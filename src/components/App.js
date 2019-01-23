@@ -189,8 +189,8 @@ class App extends React.Component {
         const request = {                      //parameter need to be passed 
             "code": sessionStorage.getItem("userCode"),
             "roleCode": "TCH1",
-            "stallCode": "STA6",
-            "ideaCode": "IDE6"
+            "stallCode": "STA7",
+            "ideaCode": "IDE21"
         }
         const updateReq = {
             "id": "open-saber.registry.update",
