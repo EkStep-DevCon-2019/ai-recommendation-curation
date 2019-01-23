@@ -41,8 +41,6 @@ class Graph extends React.Component {
   }
 
   render() {
-
-    // console.log("Graph Data is", this.state.graphdata)
     return (
       <div style={{ marginTop: '30px' }}>
         <Segment style={{ margin: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
