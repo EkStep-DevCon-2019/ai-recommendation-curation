@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Button, Dropdown, Segment, Grid, Header } from 'semantic-ui-react';
+import { Input, Button, Dropdown, Segment, Grid, Header, Icon } from 'semantic-ui-react';
 
 class Search extends React.Component {
   constructor(props) {
@@ -16,9 +16,10 @@ class Search extends React.Component {
   render() {
     return (
         <Segment style={{margin: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px'}}>
-            <Header>
-                Search
-            </Header>
+            <Header as='h2' dividing>
+            <Icon name='search' />
+          Search:
+        </Header>
             <Grid columns='2'>
                 <Grid.Row >
                     <Input focus placeholder='Search' style={{width: '100%'}} onChange={this.props.handleInputChange} />

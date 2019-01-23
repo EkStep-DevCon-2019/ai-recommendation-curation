@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Dimmer, Loader } from 'semantic-ui-react';
+import { Segment, Dimmer, Loader, Header,Icon} from 'semantic-ui-react';
 import API from '../utils/Api';
 import moment from 'moment';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Label } from 'recharts';
@@ -44,9 +44,10 @@ class Graph extends React.Component {
     return (
       <div style={{ marginTop: '30px' }}>
         <Segment style={{ margin: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
-          <h3>
-            Precision Graph:
-          </h3>
+        <Header as= 'h3' textAlign='center' dividing>
+        <Icon name='line graph' />
+          Precision Graph:
+        </Header>
           {(this.state.graphdata.length == 0) ? <Dimmer active inverted style={{marginTop: '80px' }}>
             <Loader size='massive'>Preparing Graph</Loader>
           </Dimmer> : <ResponsiveContainer width='80%' height={200}>

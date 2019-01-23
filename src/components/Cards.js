@@ -21,7 +21,7 @@ class Cards extends React.Component {
   render() {
     return (
       <div style={{margin: '10px'}}>
-        <Header as= 'h2' textAlign='center'>
+        <Header as= 'h3' textAlign='center' dividing>
         <Icon name='tags' />
           Recommended Tags:
         </Header>
