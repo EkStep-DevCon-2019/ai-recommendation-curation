@@ -15,11 +15,12 @@ class Search extends React.Component {
 
   render() {
     return (
-        <Segment style={{margin: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px'}}>
-            <Header as='h2' dividing>
+        <div  >
+            <Header as='h3' textAlign='center'>
             <Icon name='search' />
           Search:
         </Header>
+        <Segment style={{margin: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px'}}>
             <Grid columns='2'>
                 <Grid.Row >
                     <Input focus placeholder='Search' style={{width: '100%'}} onChange={this.props.handleInputChange} />
@@ -32,6 +33,7 @@ class Search extends React.Component {
                 </Grid.Row>
             </Grid>
         </Segment>
+        </div>
     );
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Dimmer, Loader, Header,Icon} from 'semantic-ui-react';
+import { Segment, Dimmer, Loader, Header, Icon, Container, Divider } from 'semantic-ui-react';
 import API from '../utils/Api';
 import moment from 'moment';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Label } from 'recharts';
@@ -43,14 +43,15 @@ class Graph extends React.Component {
   render() {
     return (
       <div style={{ marginTop: '30px' }}>
-        <Segment style={{ margin: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
-        <Header as= 'h3' textAlign='center' dividing>
-        <Icon name='line graph' />
+        <Header as='h3' textAlign='center'>
+          <Icon name='line graph' />
           Precision Graph:
         </Header>
-          {(this.state.graphdata.length == 0) ? <Dimmer active inverted style={{marginTop: '80px' }}>
+        {(this.state.graphdata.length == 0) ? <Segment style={{ height: 200 }}>
+          <Dimmer active inverted style={{ marginTop: '80px' }}>
             <Loader size='massive'>Preparing Graph</Loader>
-          </Dimmer> : <ResponsiveContainer width='80%' height={200}>
+          </Dimmer></Segment> : <Segment style={{ margin: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '50px' }}>
+            <ResponsiveContainer width='80%' height={200}>
               <LineChart data={this.state.graphdata}>
                 <XAxis dataKey="x" >
                   <Label value="Time" offset={0} position="insideBottom" />
@@ -64,8 +65,8 @@ class Graph extends React.Component {
                 <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
                 <Line type="monotone" dataKey="y" stroke="#82ca9d" />
               </LineChart>
-            </ResponsiveContainer>}
-        </Segment>
+            </ResponsiveContainer>
+          </Segment>}
       </div>
     );
   }

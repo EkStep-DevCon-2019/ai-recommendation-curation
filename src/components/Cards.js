@@ -25,7 +25,7 @@ class Cards extends React.Component {
         <Icon name='tags' />
           Recommended Tags:
         </Header>
-        {(this.props.tags.length==0)? <Dimmer active inverted style={{marginTop: '80px' }}>
+        {(this.props.tags.length==0)? <Dimmer active inverted >
             <Loader size='massive'>Loading Search Results</Loader>
           </Dimmer> :
         <Card.Group style={{marginTop: '10px', display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
@@ -47,7 +47,7 @@ class Cards extends React.Component {
           )}
         </Card.Group>}
         <br />
-        <Button positive   floated="right"onClick={this.props.handleSubmit}> Submit </Button>
+        <Button positive floated="right"onClick={this.props.handleSubmit}> Submit </Button>
         <br />
       </div>
     );
