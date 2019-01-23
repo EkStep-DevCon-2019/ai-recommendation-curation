@@ -54,14 +54,13 @@ class App extends React.Component {
             did: '98912984-c4e9-5ceb-8000-03882a0485e4',
             ets: (new Date).getTime(),
             dimensions: {
-                visitorId: visitorInfo.code,
-                visitorName: visitorInfo.name,
-                profileId: visitorInfo.osid,
-                stallId: "STA7",
-                stallName: "BAZAR",
-                ideaId: "IDE21",
-                ideaName: "Crowd Sourcing",
-                edata: edata
+                'visitorId': visitorInfo.code,
+                'visitorName': visitorInfo.name,
+                'stallId': "STA7",
+                'stallName': "BAZAR",
+                'ideaId': "IDE21",
+                'ideaName': "Crowd Sourcing",
+                'edata': edata
             }
         }
         const event = telemetry;
@@ -120,18 +119,18 @@ class App extends React.Component {
               "channel": "devcon.appu",
               "env": 'devcon',
               "cdata": [{
-                visitorId: visitorInfo.code,
-                visitorName: visitorInfo.name,
-                profileId: visitorInfo.osid,
-                stallId: "STA7",
-                stallName: "BAZAR",
-                ideaId: "IDE21",
-                ideaName: "Crowd Sourcing",
-                edata: edata
-            }],
+                "visitorId": visitorInfo.code,
+                "visitorName": visitorInfo.name,
+                "stallId": "STA7",
+                "stallName": "BAZAR",
+                "ideaId": "IDE21",
+                "ideaName": "Crowd Sourcing",
+                "edata": edata}
+            ],
             }
         }
         const event = telemetry;
+        console.log('telemetry', telemetry)
         const request = {
             "events": [event]
         };
