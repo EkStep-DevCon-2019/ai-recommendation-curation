@@ -11,7 +11,6 @@
       "credits": "100"
     }
   ],
-<<<<<<< HEAD
   "queryResponse": [
     { "id":"10",
       "appicon": "",
@@ -29,8 +28,6 @@
           "name":"card3"
           }
   ],
-=======
->>>>>>> 1ac974b2685109979ae3495c5eb8321b7db9e332
   "data": [
     {
       "timestamp": "1548140680645",

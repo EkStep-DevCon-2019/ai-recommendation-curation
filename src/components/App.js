@@ -71,13 +71,8 @@ class App extends React.Component {
     }
 
     updateCreditsCurrentState=(value)=>{
-<<<<<<< HEAD
         let addCredits = Number(this.state.credits)+Number(value)
         API.patch(`userDetails/1`,{"credits": addCredits})
-=======
-        let crt = Number(this.state.credits)+Number(value)
-        API.patch(`userDetails/1`,{"credits":crt})
->>>>>>> 1ac974b2685109979ae3495c5eb8321b7db9e332
         .then(res=>{
             this.setState({
                 credits: res.data.credits
