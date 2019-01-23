@@ -14,7 +14,7 @@
   ],
   "author": "Isha Wakankar && Anmol Gupta",
   "license": "MIT",
-  "proxy":"http://104.211.78.0:8080/update",
+  "proxy": "http://104.211.78.0:8080/update",
   "dependencies": {
     "axios": "^0.18.0",
     "babel-core": "^6.26.3",
