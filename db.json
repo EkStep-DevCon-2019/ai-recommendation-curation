@@ -21,35 +21,35 @@
   ],
   "data": [
     {
-      "timestamp": "1548140680645",
+      "timestamp": "1548325428000",
       "accuracy": "10"
     },
     {
-      "timestamp": "1548140681349",
+      "timestamp": "1548329028000",
       "accuracy": "20"
     },
     {
-      "timestamp": "1548140681759",
+      "timestamp": "1548277712000",
       "accuracy": "23"
     },
     {
-      "timestamp": "1548140682990",
+      "timestamp": "1548281312000",
       "accuracy": "19"
     },
     {
-      "timestamp": "1548140683345",
+      "timestamp": "1548284912000",
       "accuracy": "25"
     },
     {
-      "timestamp": "1548140685003",
+      "timestamp": "1548288512000",
       "accuracy": "32"
     },
     {
-      "timestamp": "1548140685234",
+      "timestamp": "1548292112000",
       "accuracy": "45"
     },
     {
-      "timestamp": "1548140685238",
+      "timestamp": "1548295712000",
       "accuracy": "48"
     }
   ]
