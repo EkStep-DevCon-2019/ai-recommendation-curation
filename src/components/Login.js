@@ -54,12 +54,11 @@ class Login extends React.Component {
 
     API.get(`loginDetails`)
       .then(res => {
-        sessionStorage.setItem("userObject",res.data);
         sessionStorage.setItem("userName",res.data[0].result.Visitor.name);
-        sessionStorage.setItem("coins",res.data[0].result.Visitor.coinsGiven);
-        sessionStorage.setItem("os-id",res.data[0].result.Visitor.osid);
-        sessionStorage.setItem("code",res.data[0].result.Visitor.code);
-        this.props.history.push('/home');
+        this.props.history.push({
+          pathname: '/home',
+          state: res.data[0].result.Visitor,
+        });
       })
       .catch(error => {
         console.log(error)

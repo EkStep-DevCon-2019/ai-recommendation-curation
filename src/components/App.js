@@ -15,7 +15,7 @@ class App extends React.Component {
           input: '',
           filters: [],
           feedback: [],
-          credits: 0,
+          coins: 0,
           tags: [],
         }
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -26,6 +26,11 @@ class App extends React.Component {
 
     componentDidMount(){
         // this.getCreditsCurrentState();
+        console.log('props from login',this.props.location.state)
+
+    this.setState({
+        coins:this.props.location.state.coinsGiven
+    })
     }
     
     handleInputChange = (event) => {
@@ -77,7 +82,7 @@ class App extends React.Component {
     // }
 
     updateCreditsCurrentState=(value)=>{
-        let addCredits = Number(this.state.credits)+Number(value)
+        let addCredits = Number(this.state.coins)+Number(value)
         API.patch(`userDetails/1`,{"credits": addCredits})
         .then(res=>{
             this.setState({
@@ -89,7 +94,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <Navbar credits={this.state.credits} />
+                <Navbar credits={this.state.coins} />
                 <div style={{marginTop: '30px'}}>
                     <Search handleInputChange={this.handleInputChange} handleSearch={this.handleSearch} handleFilters={this.handleFilters} />
                     {(this.state.query=='')?'':<Cards query={this.state.query} tags={this.state.tags} filters={this.state.filters} handleSubmit={this.handleSubmit}/>}
