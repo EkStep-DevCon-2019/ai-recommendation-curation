@@ -1,39 +1,4 @@
 {
-  "loginDetails":[
-    {
-<<<<<<< HEAD
-      "id": "ekstep.devcon.login",
-      "ver": "3.0",
-      "ets": 1548141142223,
-      "params": {
-          "resmsgid": "a194e6f4-a92f-4815-8f15-25759375a672",
-          "msgid": null,
-          "err": null,
-          "status": "successful",
-          "errmsg": null
-      },
-      "responseCode": "OK",
-      "result": {
-          "Visitor": {
-              "code": "visitor id",
-              "coinsGiven": 50,
-              "name": "Sita",
-              "osid": "6e1a154c-3b48-402c-b372-95af83ff349d"
-          }
-      }
-  }
-=======
-      "id": 1,
-      "name": "anmol",
-      "credits": 7916
-    },
-    {
-      "id": 2,
-      "name": "isha",
-      "credits": 5609
-    }
->>>>>>> 814e6dd49560de1e930c5fb9f99bedf452e180ff
-  ],
   "queryResponse": [
     {
       "id": "10",

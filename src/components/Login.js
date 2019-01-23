@@ -52,7 +52,7 @@ class Login extends React.Component {
 
     this.setState({ loading: true });
 
-
+    sessionStorage.setItem("userId",userid);
     const request={                      //parameter need to be passed 
       "code":userid,
       "roleCode": "TCH1",

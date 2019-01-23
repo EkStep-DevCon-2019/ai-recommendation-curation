@@ -4,6 +4,7 @@ import Search from './Search';
 import Cards from './Cards';
 import Graph from './Graph';
 import API from '../utils/Api'
+import axios from 'axios';
 import SessionIdGenerator from '../../src/utils/SessionIdGenerator'
 
 
@@ -25,7 +26,6 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        console.log('props from login', this.props.location.state)
         if (this.props.location.state.coinsGiven === undefined) {
 
             this.setState({ coins: 0 })
@@ -42,7 +42,7 @@ class App extends React.Component {
     }
 
     handleSearch = () => {
-        API.get(`queryResponse`).then(res => {
+        axios.get(`http://localhost:3000/queryResponse`).then(res => {
             this.setState({
                 tags: res.data.splice(0, 3),  //For rendering only three cards
                 query: this.state.input,
@@ -72,7 +72,7 @@ class App extends React.Component {
             feedback: values,
         })
         localStorage.clear();
-        this.updateCreditsCurrentState(keys.length)
+        this.updateCoinsCurrentState(keys.length)
     }
 
     // getCreditsCurrentState=()=>{
@@ -83,13 +83,47 @@ class App extends React.Component {
     //     })
     // }
 
-    updateCreditsCurrentState = (value) => {
-        let addCredits = Number(this.state.coins) + Number(value)
-        API.patch(`userDetails/1`, { "credits": addCredits })
+    updateCoinsCurrentState = (value) => {
+        let addCoins = Number(this.state.coins) + Number(value)
+        console.log("in update coin current stage",addCoins);
+        const request={                      //parameter need to be passed 
+            "code":sessionStorage.getItem("userId"),
+            "roleCode": "TCH1",
+            "stallCode": "STA6",
+            "ideaCode":"IDE6"
+        }      
+     const updateReq= {
+            "id": "open-saber.registry.update",
+            "ver": "1.0",
+            "ets": "11234",
+            "params": {
+              "did": "",
+              "key": "",
+              "msgid": ""
+            },
+            "request": {
+              "Visitor": {
+                "code": "VIS505",
+                "coinsGiven": addCoins
+              }
+            }
+          }
+        axios.post(`http://104.211.78.0:8080/update`, {updateReq})
             .then(res => {
-                this.setState({
-                    credits: res.data.credits
-                })
+                console.log("the response from the update api",res)
+                if(res.data.params.status==='SUCCESSFUL'){
+                    API.post(`login`,{request})
+                    .then(res=>{
+                        this.setState({
+                            coins: res.data.result.Visitor.coinsGiven
+                        })
+
+                    })
+                }
+                else{
+// login to be put if coin updation is unsuccessfull
+                
+                }
             })
     }
 
