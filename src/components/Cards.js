@@ -26,7 +26,7 @@ class Cards extends React.Component {
   render() {
     return (
       <div style={{margin: '10px'}}>
-        <Header style={{paddingTop: '20px', paddingLeft: '40px'}}>
+        <Header textAlign="center" style={{paddingTop: '20px', paddingLeft: '40px'}}>
           Recommended:
         </Header>
         <Card.Group style={{marginTop: '10px', display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
@@ -41,7 +41,7 @@ class Cards extends React.Component {
                 </Card.Description>
               </Card.Content>
               <Card.Content extra>
-                <Rating icon='star' maxRating={5} onRate={(e,{rating}) => this.handleRate(e,{rating},i)} />
+                <Rating maxRating={5} onRate={(e,{rating}) => this.handleRate(e,{rating},i)} />
               </Card.Content>
             </Card>
           )}
