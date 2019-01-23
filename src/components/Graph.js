@@ -2,6 +2,7 @@ import React from 'react';
 import { Segment, Dimmer, Loader, Header, Icon, Container, Divider } from 'semantic-ui-react';
 import API from '../utils/Api';
 import moment from 'moment';
+import axios from 'axios';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Label } from 'recharts';
 
 class Graph extends React.Component {
@@ -13,14 +14,14 @@ class Graph extends React.Component {
   }
 
   getPerformance = () => {
-    API.get(`data`)
+    axios.get(`http://localhost:3000/data`)
       .then(res => {
         return (res.data)
       }).then(function (data) {
         let dataPoints = [];
         for (var i = 0; i < data.length; i++) {
           dataPoints.push({
-            x: Number(moment.utc(Number(data[i].timestamp)).format('HH:MM')),
+            x: Number(moment.utc(Number(data[i].timestamp)).format('HH')),
             y: data[i].accuracy
           });
         }
@@ -33,7 +34,7 @@ class Graph extends React.Component {
   }
 
   componentDidMount = () => {
-    this.timer = setInterval(() => this.getPerformance(), 800000);
+    this.timer = setInterval(() => this.getPerformance(), 3000);
   }
 
   componentWillUnmount = () => {
