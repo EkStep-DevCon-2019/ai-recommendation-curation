@@ -245,7 +245,7 @@ class App extends React.Component {
                 <Navbar credits={this.state.coins} />
                 <div style={{ marginTop: '30px' }}>
                     <Search handleInputChange={this.handleInputChange} handleSearch={this.handleSearch} handleFilters={this.handleFilters} />
-                    {(this.state.query == '') ? '' : <Cards query={this.state.query} tags={this.state.tags} filters={this.state.filters} handleSubmit={this.handleSubmit} />}
+                    {(this.state.query == '' && this.state.filters.length==0) ? '' : <Cards query={this.state.query} tags={this.state.tags} filters={this.state.filters} handleSubmit={this.handleSubmit} />}
                     {(this.state.messageOpen)?<Message message={this.state.message} messageOpen={this.state.messageOpen} handleClose={this.handleClose} />: ''}
                     <Graph />
                 </div>
