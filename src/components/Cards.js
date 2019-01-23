@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Button, Icon,Image, Header, Rating, Dimmer, Loader, Segment, Grid } from 'semantic-ui-react';
+import { Card, Button, Icon,Image, Header, Rating, Dimmer, Loader } from 'semantic-ui-react';
 
 class Cards extends React.Component {
   constructor(props) {
@@ -41,7 +41,7 @@ class Cards extends React.Component {
                 </Card.Description>
               </Card.Content>
               <Card.Content extra>
-                <Rating maxRating={5} onRate={(e,{rating}) => this.handleRate(e,{rating},x.id)} />
+                <Rating maxRating={5} icon='star' size='large' onRate={(e,{rating}) => this.handleRate(e,{rating},x.id)} />
               </Card.Content>
             </Card>
           )}
