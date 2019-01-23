@@ -21,7 +21,7 @@ class Graph extends React.Component {
         let dataPoints = [];
         for (var i = 0; i < data.length; i++) {
           dataPoints.push({
-            x: Number(moment.utc(Number(data[i].timestamp)).format('HH')),
+            x: Number(moment.utc(Number(data[i].timestamp)).format('h')),
             y: data[i].accuracy
           });
         }
@@ -34,7 +34,7 @@ class Graph extends React.Component {
   }
 
   componentDidMount = () => {
-    this.timer = setInterval(() => this.getPerformance(), 3000);
+    this.timer = setInterval(() => this.getPerformance(), 300);
   }
 
   componentWillUnmount = () => {
