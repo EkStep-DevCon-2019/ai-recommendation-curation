@@ -29,7 +29,6 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        console.log('props from login', this.props.location.state)
         if(this.props.location.state == undefined)
         {
             this.props.history.push('/')
