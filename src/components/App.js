@@ -42,7 +42,6 @@ class App extends React.Component {
                 if (sessionStorage.getItem("coins") == null) {
                     this.setState({ coins: this.props.location.state.coinsGiven })
                 }
-
                 else {
                     this.setState({ coins: sessionStorage.getItem("coins") })
                 }
@@ -60,17 +59,16 @@ class App extends React.Component {
             did: '98912984-c4e9-5ceb-8000-03882a0485e4',
             ets: (new Date).getTime(),
             dimensions: {
-                visitorId: visitorInfo.code,
-                visitorName: visitorInfo.name,
-                profileId: visitorInfo.osid,
-                stallId: "STA7",
-                stallName: "BAZAR",
-                ideaId: "IDE21",
-                ideaName: "Crowd Sourcing",
-                edata: edata
+                'visitorId': visitorInfo.code,
+                'visitorName': visitorInfo.name,
+                'stallId': "STA7",
+                'stallName': "BAZAR",
+                'ideaId': "IDE21",
+                'ideaName': "Crowd Sourcing",
+                'edata': edata
             }
         }
-        const event = JSON.stringify(telemetry);
+        const event = telemetry;
         const request = {
             "events": [event]
         };
@@ -116,7 +114,6 @@ class App extends React.Component {
     }
 
     generateInteractTelemetry(visitorInfo) {
-        const edata = { type: "bazar", mode: "play" };
         const telemetry = {
             "eid": "INTERACT",
             "ets": (new Date).getTime(),
@@ -130,18 +127,18 @@ class App extends React.Component {
                 "channel": "devcon.appu",
                 "env": 'devcon',
                 "cdata": [{
-                    visitorId: visitorInfo.code,
-                    visitorName: visitorInfo.name,
-                    profileId: visitorInfo.osid,
-                    stallId: "STA7",
-                    stallName: "BAZAR",
-                    ideaId: "IDE21",
-                    ideaName: "Crowd Sourcing",
-                    edata: edata
-                }],
+                    "visitorId": visitorInfo.code,
+                    "visitorName": visitorInfo.name,
+                    "stallId": "STA7",
+                    "stallName": "BAZAR",
+                    "ideaId": "IDE21",
+                    "ideaName": "Crowd Sourcing"
+                }
+                ],
             }
         }
-        const event = JSON.stringify(telemetry);
+        const event = telemetry;
+        console.log('telemetry', telemetry)
         const request = {
             "events": [event]
         };
@@ -161,13 +158,12 @@ class App extends React.Component {
     }
 
     handleSubmit = () => {
-        console.log('Submitted')
-        console.log("the sessionIdgenrator method is ", SessionIdGenerator.getTimestamp(), "the uuid id is", SessionIdGenerator.getUuid());
         let keys = Object.keys(localStorage);
         let values = [];
         keys.forEach((x) => {
             let c = localStorage.getItem(x);
-            values.push({ 'cardID': x, 'Rating': c })
+            if(x!="sessionId"){
+            values.push({ 'cardID': x, 'Rating': c })}
         })
         console.log('Feedback', values)
         this.setState({
@@ -184,10 +180,11 @@ class App extends React.Component {
     submitTagsReview(values,sessionId) {
         var preparedData = this.prepareRequestForReview(values)
         const submitRequest = {
-            "content_info": [preparedData],
+            "content_info": content,
             "session_id": sessionId
         }
-        axios.post(`http://172.16.0.85:1235/ML/getReview`, { submitRequest })
+        axios.post(`http://172.16.0.85:1235/ML/getReview`, { "content_info": preparedData,
+        "session_id": sessionId })
             .then(res => {
                 console.log(res)
             })
@@ -270,23 +267,23 @@ class App extends React.Component {
                         .then(res => {
                             this.setState({
                                 coins: res.data.result.Visitor.coinsGiven,
-                                message: 'Congratulations! Coins Successfully Credited',
+                                message: 'Congratulations! Coins successfully credited!',
                                 messageOpen: true,
                             })
                             sessionStorage.setItem("coins", res.data.result.Visitor.coinsGiven)
-                            console.log("the value in sessionCode", sessionStorage.getItem("coins"))
+                            
                         })
                 }
                 else {
                     // login to be put if coin updation is unsuccessfull
                     this.setState({
-                        message: 'No coins credited! Retry After Some Time',
+                        message: 'No coins credited! Try again later!',
                         messageOpen: true,
                     })
                 }
             }).catch(err => {
                 this.setState({
-                    message: 'No coins credited! Retry After Some Time',
+                    message: 'No coins credited! Try again later!',
                     messageOpen: true,
                 })
             })

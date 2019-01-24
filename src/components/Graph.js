@@ -19,10 +19,10 @@ class Graph extends React.Component {
         return (res.data)
       }).then(function (data) {
         let dataPoints = [];
-        for (var i = 0; i < data.length; i++) {
+        for (var i = 0; i < data.data.length; i++) {
           dataPoints.push({
-            x: Number(moment.utc(Number(data[i].timestamp)).format('h')),
-            y: data[i].accuracy
+            x: Number(moment.utc(Number(data.data[i].timestamp)).format('h')),
+            y: data.data[i].accuracy
           });
         }
         return (dataPoints)
@@ -34,7 +34,7 @@ class Graph extends React.Component {
   }
 
   componentDidMount = () => {
-    this.timer = setInterval(() => this.getPerformance(), 300000);
+    this.timer = setInterval(() => this.getPerformance(), 3000);
   }
 
   componentWillUnmount = () => {
@@ -59,7 +59,7 @@ class Graph extends React.Component {
             <ResponsiveContainer width='80%' height={200}>
               <LineChart data={this.state.graphdata}>
                 <XAxis dataKey="x" >
-                  <Label value="Time" offset={0} position="insideBottom" />
+                  <Label value="Time(hrs)" offset={0} position="insideBottom" />
                 </XAxis>
                 <YAxis label={{
                   value: 'Accuracy',
