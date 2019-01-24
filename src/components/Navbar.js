@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, Menu, Dropdown, Icon, Label, Header } from 'semantic-ui-react';
 import { Redirect } from 'react-router';
-import API from '../utils/Api'
+import API from '../utils/Api';
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -40,6 +40,9 @@ class Navbar extends React.Component {
             <span style={{marginLeft:'6px'}}><b>{this.props.credits}</b></span>
           </Menu.Item>
 
+          <Menu.Item position='right' >
+            <Image src='./images/Red_transparent_appu.png' size='tiny'  />
+          </Menu.Item>
           <Menu.Item position='right' >
             <Dropdown trigger={trigger} pointing='top right' icon={null}>
               <Dropdown.Menu>
