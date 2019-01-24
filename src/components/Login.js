@@ -55,8 +55,8 @@ class Login extends React.Component {
     const request={                      //parameter need to be passed 
       "code":userid,
       "roleCode": "TCH1",
-      "stallCode": "STA6",
-      "ideaCode":"IDE6"
+      "stallCode": "STA7",
+      "ideaCode":"IDE21"
   }
 
     API.post(`login`,{request})
